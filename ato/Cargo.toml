@@ -1,0 +1,13 @@
+[package]
+name = "ato"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+walkdir="2.5.0"
+md5 = "0.7.0"
+
+[lib]
+name = "libato"
+path = "src/lib.rs"
+
