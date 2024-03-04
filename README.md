@@ -7,6 +7,13 @@
 
 🚧 Building .. 🚧
 
+## Download
+
+```dash
+ATO_URL=${GH_Release}
+curl -fsSL $ATO_URL | tar -xz
+```
+
 ## Usage
 
 `ato-cli -d ${DATASET} -e ${EXTERNAL}`
