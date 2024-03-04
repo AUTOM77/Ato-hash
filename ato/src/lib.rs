@@ -26,8 +26,8 @@ pub fn _hash(r:  &str, p: &path::Path, e: &str) -> Result<(), Box<dyn std::error
 }
 
 pub fn process(_pth: &str, _e:&str) -> Result<(), Box<dyn std::error::Error>> {
-    let _root = format!("{}_sha", _pth.to_owned());
-    let _ = fs::create_dir_all(&_root)?;
+    let root = format!("{}_sha", _pth.to_owned());
+    let _ = fs::create_dir_all(&root)?;
 
     let pdd: Vec<path::PathBuf> = 
         WalkDir::new(_pth).into_iter()
@@ -38,7 +38,7 @@ pub fn process(_pth: &str, _e:&str) -> Result<(), Box<dyn std::error::Error>> {
         .collect();
 
     for p in pdd {
-        println!("{}", p.display());
+        let _ = _hash(&root, &p, _e);
     }
 
     Ok(())
