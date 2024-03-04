@@ -1,3 +1,4 @@
+use rayon::prelude::*;
 use walkdir::WalkDir;
 use std::fs;
 use std::path;
@@ -37,9 +38,9 @@ pub fn process(_pth: &str, _e:&str) -> Result<(), Box<dyn std::error::Error>> {
         })
         .collect();
 
-    for p in pdd {
+    pdd.par_iter().for_each(|p| {
         let _ = _hash(&root, &p, _e);
-    }
+    });
 
     Ok(())
 }
