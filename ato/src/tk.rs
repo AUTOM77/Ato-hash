@@ -1,9 +1,12 @@
 
 use walkdir::WalkDir;
 use tokio::{fs, task};
+use md5::{Digest, Md5};
 use std::path;
 
 pub async fn async_hash(r:  &str, p: &path::Path, e: &str) -> Result<(), Box<dyn std::error::Error>>{
+    let mut hasher = Md5::new();
+
     let _dir = p.with_file_name("");
     let _num = _dir.file_name().unwrap().to_str().unwrap();
     let _in = p.with_file_name(format!("{}_{}_{}", _num, "total", e));
@@ -11,7 +14,8 @@ pub async fn async_hash(r:  &str, p: &path::Path, e: &str) -> Result<(), Box<dyn
     let _low = p.with_file_name(format!("{}_{}_{}", _num, "low", e));
     if _in.is_file() && _up.is_file() && _low.is_file() {
         let contents = fs::read(&_in).await?;
-        let digest = md5::compute(&contents);
+        let _ = hasher.update(&contents);
+        let digest = hasher.finalize();
         let md5_dir = format!("{}/{:x}", r, digest);
 
         let _ = fs::create_dir_all(&md5_dir).await?;
@@ -19,6 +23,9 @@ pub async fn async_hash(r:  &str, p: &path::Path, e: &str) -> Result<(), Box<dyn
         let _ = fs::copy(_up, format!("{}/up.stl", &md5_dir)).await?;
         let _ = fs::copy(_low, format!("{}/low.stl", &md5_dir)).await?;
         let _ = fs::copy(p, format!("{}/gt.stl", &md5_dir)).await?;
+    }
+    else {
+        println!("{:#?}", p);
     }
     Ok(())
 }
