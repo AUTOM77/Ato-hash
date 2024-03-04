@@ -29,11 +29,17 @@ pub fn process(_pth: &str, _e:&str) -> Result<(), Box<dyn std::error::Error>> {
     let _root = format!("{}_sha", _pth.to_owned());
     let _ = fs::create_dir_all(&_root)?;
 
-    for entry in WalkDir::new(_pth).into_iter().filter_map(|e| e.ok()) {
-        let pth = entry.path();
-        if pth.display().to_string().contains("gt") {
-            let _ = _hash(&_root, pth, _e);
-        }
+    let pdd: Vec<path::PathBuf> = 
+        WalkDir::new(_pth).into_iter()
+        .map(|e| e.unwrap().into_path())
+        .filter(|c| {
+            c.display().to_string().contains("gt")
+        })
+        .collect();
+
+    for p in pdd {
+        println!("{}", p.display());
     }
+
     Ok(())
 }
