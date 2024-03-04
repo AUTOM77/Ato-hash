@@ -13,16 +13,18 @@ pub fn process(_pth: &str, _e:&str) -> Result<(), Box<dyn std::error::Error>> {
             let _in = pth.with_file_name(format!("{}_{}_{}", _num, "total", _e));
             let _up = pth.with_file_name(format!("{}_{}_{}", _num, "up", _e));
             let _low = pth.with_file_name(format!("{}_{}_{}", _num, "low", _e));
+            if _in.is_file() && _up.is_file() && _low.is_file() {
             let contents = fs::read(&_in).expect("Unable to read the file");
             let digest = md5::compute(&contents);
             let md5_dir = format!("{}/{:x}", _root, digest);
-
-            if _in.is_file() && _up.is_file() && _low.is_file() {
                 let _ = fs::create_dir_all(&md5_dir)?;
                 let _ = fs::copy(_in, format!("{}/in.stl", &md5_dir))?;
                 let _ = fs::copy(_up, format!("{}/up.stl", &md5_dir))?;
                 let _ = fs::copy(_low, format!("{}/low.stl", &md5_dir))?;
                 let _ = fs::copy(pth, format!("{}/gt.stl", &md5_dir))?;
+            }
+            else {
+                println!("{:#?}", pth);
             }
 
         }
