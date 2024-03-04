@@ -1,5 +1,5 @@
 use clap::Parser;
-use libato::process;
+use libato::ry::process;
 
 #[derive(Parser, Debug)]
 struct Args {
