@@ -2,7 +2,7 @@ use walkdir::WalkDir;
 use std::fs;
 
 pub fn process(_pth: &str, _e:&str) -> Result<(), Box<dyn std::error::Error>> {
-    let _root = format!("{}_md5", _pth.to_owned());
+    let _root = format!("{}_sha", _pth.to_owned());
     let _ = fs::create_dir_all(&_root)?;
 
     for entry in WalkDir::new(_pth).into_iter().filter_map(|e| e.ok()) {
