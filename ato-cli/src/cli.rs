@@ -1,5 +1,6 @@
 use clap::Parser;
-use libato::ry::process;
+// use libato::ry::process;
+use libato::tk::process;
 
 #[derive(Parser, Debug)]
 struct Args {
@@ -9,10 +10,11 @@ struct Args {
     external: String,
 }
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let _args = Args::parse();
     let start = std::time::Instant::now();
-    let _ = process(&_args.dataset, &_args.external);
+    let _ = process(&_args.dataset, &_args.external).await?;
     let duration = start.elapsed();
     println!("Time elapsed in process() is: {:?}", duration);
     Ok(())
