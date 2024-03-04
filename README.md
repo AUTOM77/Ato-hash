@@ -12,6 +12,7 @@
 ```dash
 ATO_URL=${GH_Release}
 curl -fsSL $ATO_URL | tar -xz
+chmod +x ./ato-cli
 ```
 
 ## Usage
