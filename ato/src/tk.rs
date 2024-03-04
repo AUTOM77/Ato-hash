@@ -20,9 +20,6 @@ pub async fn async_hash(r:  &str, p: &path::Path, e: &str) -> Result<(), Box<dyn
         let _ = fs::copy(_low, format!("{}/low.stl", &md5_dir)).await?;
         let _ = fs::copy(p, format!("{}/gt.stl", &md5_dir)).await?;
     }
-    else {
-        println!("{:#?}", p);
-    }
     Ok(())
 }
 
