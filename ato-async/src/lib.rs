@@ -24,7 +24,7 @@ pub async fn async_hash(r:  &str, p: &path::Path, e: &str) -> Result<(), Box<dyn
         let _ = fs::copy(p, format!("{}/gt.stl", &md5_dir)).await?;
     }
     else {
-        println!("{:#?}", p.with_file_name(""));
+        println!("{}", p.with_file_name("").display().to_string());
     }
     Ok(())
 }

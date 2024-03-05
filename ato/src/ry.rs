@@ -19,7 +19,7 @@ pub fn _hash(r:  &str, p: &std::path::Path, e: &str) -> Result<(), Box<dyn std::
         let _ = std::fs::copy(p, format!("{}/gt.stl", &md5_dir))?;
     }
     else {
-        println!("{:#?}", p.with_file_name(""));
+        println!("{}", p.with_file_name("").display().to_string());
     }
     Ok(())
 }
