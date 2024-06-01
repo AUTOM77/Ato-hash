@@ -1,19 +1,19 @@
 use clap::Parser;
-use libato::ry::process;
+use libato::mesh::Data;
 
 #[derive(Parser, Debug)]
 struct Args {
     #[clap(short = 'd', long, name = "DATA_PATH")]
-    dataset: String,
-    #[clap(short = 'e', long, name = "EXTERNAL")]
-    external: String,
+    data: String,
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let start_time = std::time::Instant::now();
+
     let _args = Args::parse();
     let start = std::time::Instant::now();
-    let _ = process(&_args.dataset, &_args.external);
-    let duration = start.elapsed();
-    println!("Time elapsed in process() is: {:?}", duration);
+    let dir = &_args.data;
+
+    println!("Processing time: {:?}", start_time.elapsed());
     Ok(())
 }
