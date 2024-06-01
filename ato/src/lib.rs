@@ -12,10 +12,13 @@ pub fn two_stage(_pth: &str) -> Result<(), Box<dyn std::error::Error>> {
         .map(|f| f.parent().unwrap().to_path_buf())
         .collect();
 
-    let _ = dataset.par_iter()
-        .for_each(|pth| {
-            let d = mesh::Data::from(pth).unwrap();
-            let _ = d.cp(root.clone().into());
-        });
+    let _ = dataset.par_iter().for_each(|pth| {
+        match mesh::Data::from(&pth) {
+            Ok(d) => if let Err(e) = d.cp(root.clone().into()) {
+                eprintln!("Error copying data from {}: {:?}", pth.display(), e);
+            }
+            Err(e) => eprintln!("Error loading data from {}: {:?}", pth.display(), e)
+        };
+    });
     Ok(())
 }
