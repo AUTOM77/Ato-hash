@@ -42,6 +42,6 @@ impl Data {
         let lh: u128 = u128::from_str_radix(&_lh, 16).unwrap();
         let rh: u128 = u128::from_str_radix(&_rh, 16).unwrap();
 
-        format!("{:x}", lh+rh)
+        format!("{:032x}", lh+rh)
     }
 }
