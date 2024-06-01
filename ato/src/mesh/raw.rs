@@ -1,6 +1,5 @@
 use std::path::PathBuf;
 use md5::{Digest, Md5};
-use rayon::vec;
 
 #[derive(Debug)]
 pub struct Raw {
@@ -17,7 +16,7 @@ impl Raw {
         self.e.clone()
     }
 
-    pub fn from(dir: &str, extension: &str, pattern: &str) -> Result<Self, Box<dyn std::error::Error>> {
+    pub fn from(dir: &PathBuf, extension: &str, pattern: &str) -> Result<Self, Box<dyn std::error::Error>> {
         let files: Vec<std::path::PathBuf> = std::fs::read_dir(dir)
             .unwrap()
             .filter_map(Result::ok)

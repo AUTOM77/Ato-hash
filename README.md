@@ -17,7 +17,7 @@ chmod +x ./ato-cli
 
 ## Usage
 
-`ato-cli -d ${DATASET} -e ${EXTERNAL}`
+`ato-cli -d ${DATASET}`
 
 ## License
 
